@@ -1,0 +1,19 @@
+// Compile with
+//    protoc src/main/java/com/shuffle/moderator/proto/message.proto --java_out=src/main/java/
+
+syntax="proto3";
+option java_package = "com.shuffle.moderator.proto";
+option java_outer_classname = "Proto";
+
+message Signed {
+    Packet packet = 1;
+    Signature signature = 2;
+}
+
+message Packet {
+    bytes session = 1;
+    uint32 number = 2;
+    VerificationKey from = 3;
+    VerificationKey to = 4;
+    Message message = 6;
+}

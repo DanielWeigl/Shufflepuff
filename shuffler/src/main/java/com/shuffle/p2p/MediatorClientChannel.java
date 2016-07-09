@@ -75,12 +75,8 @@ public class MediatorClientChannel<Name, Address, Payload extends Serializable> 
             return openSessions.get(name);
         }
 
-        public boolean connected(Name name) throws InterruptedException {
-            PendingSession p = pendingSessions.get(name);
-
-            if (p != null) {
-                p.connected.receive();
-            }
+        public boolean connected(Name name) {
+            if (pendingSessions.containsKey(name)) return true;
 
             return openSessions.containsKey(name);
         }
@@ -227,7 +223,7 @@ public class MediatorClientChannel<Name, Address, Payload extends Serializable> 
         }
 
         @Override
-        public boolean closed() throws InterruptedException {
+        public boolean closed() {
 
             return !openSessions.connected(you);
         }

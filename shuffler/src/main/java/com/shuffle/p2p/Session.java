@@ -20,7 +20,7 @@ import java.io.Serializable;
 public interface Session<Identity, Message extends Serializable> extends Send<Message> {
 
     // Whether the session has been closed.
-    boolean closed() throws InterruptedException;
+    boolean closed();
 
     // The peer corresponding to this session.
     Peer<Identity, Message> peer();

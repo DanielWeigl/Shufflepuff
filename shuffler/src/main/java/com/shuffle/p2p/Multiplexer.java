@@ -49,7 +49,7 @@ public class Multiplexer<X, Y, Message extends Serializable> implements Channel<
         }
 
         @Override
-        public boolean closed() throws InterruptedException {
+        public boolean closed() {
             if (first == null) {
                 return second.closed();
             }

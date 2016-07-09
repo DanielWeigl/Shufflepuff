@@ -40,7 +40,7 @@ public class MappedChannel<Identity, Address, X extends Serializable> implements
         }
 
         @Override
-        public boolean closed() throws InterruptedException {
+        public boolean closed() {
             return inner.closed();
         }
 

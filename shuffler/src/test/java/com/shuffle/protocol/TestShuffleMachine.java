@@ -81,7 +81,7 @@ public class TestShuffleMachine {
 
         @Override
         protected Crypto crypto() {
-            return new MockCrypto(new InsecureRandom(++seed));
+                    return new MockCrypto(new InsecureRandom(++seed));
         }
     }
 

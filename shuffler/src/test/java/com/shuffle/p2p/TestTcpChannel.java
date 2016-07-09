@@ -128,7 +128,7 @@ public class TestTcpChannel {
             }
 
             @Override
-            public boolean closed() throws InterruptedException {
+            public boolean closed() {
                 return session.closed();
             }
 

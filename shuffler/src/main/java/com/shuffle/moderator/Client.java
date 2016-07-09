@@ -14,4 +14,7 @@ package com.shuffle.moderator;
  * Created by Daniel Krawisz on 1/26/16.
  */
 public class Client {
+    public static void main(String[] opts) {
+
+    }
 }
