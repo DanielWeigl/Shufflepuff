@@ -9,7 +9,7 @@
 package com.shuffle.p2p;
 
 import com.shuffle.bitcoin.Crypto;
-import com.shuffle.chan.BasicInbox;
+import com.shuffle.chan.Inbox;
 import com.shuffle.chan.Send;
 
 import java.io.IOException;
@@ -159,7 +159,7 @@ public class Connect<Identity, P extends Serializable> implements Connection<Ide
 
         if (channel == null || crypto == null) throw new NullPointerException();
 
-        collector = new Collector<>(new BasicInbox<Identity, P>(capacity));
+        collector = new Collector<>(new Inbox<Identity, P>(capacity));
 
         connection = channel.open(collector);
         if (connection == null ) throw new IllegalArgumentException();

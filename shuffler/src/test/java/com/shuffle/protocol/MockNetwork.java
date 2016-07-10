@@ -11,7 +11,6 @@ package com.shuffle.protocol;
 import com.shuffle.bitcoin.SigningKey;
 import com.shuffle.bitcoin.VerificationKey;
 import com.shuffle.chan.BasicChan;
-import com.shuffle.chan.BasicInbox;
 import com.shuffle.chan.Send;
 import com.shuffle.chan.packet.JavaMarshaller;
 import com.shuffle.chan.packet.Packet;
@@ -51,10 +50,10 @@ public class MockNetwork  {
             throws NoSuchAlgorithmException {
 
         // First create the inbox and outbox.
-        outbox = new BasicInbox<>(cap);
+        outbox = new Inbox<>(cap);
 
         Inbox<VerificationKey, Signed<Packet<VerificationKey, P>>> inbox
-                = new BasicInbox<>(cap);
+                = new Inbox<>(cap);
 
         VerificationKey vk = me.VerificationKey();
 

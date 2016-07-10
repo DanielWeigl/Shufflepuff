@@ -2,7 +2,6 @@ package com.shuffle.sim;
 
 import com.shuffle.bitcoin.SigningKey;
 import com.shuffle.bitcoin.VerificationKey;
-import com.shuffle.chan.BasicInbox;
 import com.shuffle.chan.Inbox;
 import com.shuffle.chan.Receive;
 import com.shuffle.chan.Send;
@@ -66,7 +65,7 @@ class Initializer<X> {
         networks.put(sk, inputs);
 
         // Ceate a new mailbox.
-        Inbox<VerificationKey, Signed<X>> inbox = new BasicInbox<>(capacity);
+        Inbox<VerificationKey, Signed<X>> inbox = new Inbox<>(capacity);
 
         // Create input channels for this new mailbox that lead to all other mailboxes
         // and create input channels for all the other mailboxes for this new one.
