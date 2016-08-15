@@ -229,18 +229,21 @@ public class CoinShuffle {
             // Generate the join transaction.
             Transaction t = coin.shuffleTransaction(amount, inputs, newAddresses, changeAddresses);
 
+            if (me == 1) System.out.println("Player 1 generated tx: " + t.serialize());
+
             checkDoubleSpending(t);
             if (t == null) throw new RuntimeException("Transaction in null. This should not happen.");
 
             // Generate the input script using our signing key.
-            Bytestring inputScript = t.sign(sk);
+            Message inputScript = messages.make().attach(t.sign(sk));
 
-            mailbox.broadcast(messages.make().attach(inputScript), phase.get());
+            mailbox.broadcast(inputScript, phase.get());
 
             Map<VerificationKey, Message> signatureMessages = null;
             boolean invalidClaim = false;
             try {
                 signatureMessages = mailbox.receiveFromMultiple(playerSet(1, N), phase.get());
+                signatureMessages.put(vk, inputScript);
             } catch (BlameException e) {
                 switch (e.packet.payload().readBlame().reason) {
                     case InvalidSignature: {
@@ -267,7 +270,7 @@ public class CoinShuffle {
                 Bytestring signature = sig.getValue().readSignature();
                 signatures.put(key, signature);
 
-                if (t.addInputScript(signature)) {
+                if (!t.addInputScript(signature)) {
                     invalid.put(key, signature);
                 }
             }
@@ -285,6 +288,8 @@ public class CoinShuffle {
                 mailbox.broadcast(blameMessage, phase.get());
                 throw fillBlameMatrix();
             }
+
+            if (me == 1) System.out.println("Player 1 adds signatures and gets: " + t.serialize());
 
             // Send the transaction into the net.
             t.send();
